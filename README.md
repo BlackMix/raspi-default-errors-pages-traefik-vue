@@ -18,18 +18,18 @@ log:
 
 entrypoints:
     web:
-    address: :80
+        address: :80
     websecure:
-    address: :443
+        address: :443
     ws:
-    address: :6800
+        address: :6800
     
 providers:
     kubernetesCRD: {}
     kubernetesIngress: {}
     file:
-    directory: "/configs/config"
-    watch: true
+        directory: "/configs/config"
+        watch: true
 
 certificatesResolvers:
     default:
