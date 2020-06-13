@@ -41,20 +41,6 @@ certificatesResolvers:
 ```
 ##########################################
 
-### Middleware
-* traefik inject configs in file provider
-* /configs/config/erros.yml
-```yaml
-http:
-  middlewares:
-    errorpage:
-      errors:
-        status:
-          - "400-599"
-        service: errors-web-show@kubernetescrd # <---
-        query: "/#/error/{status}"
-```
-#########################################
 
 ### Kubernetes Deploy
 * Normal setup deploy Kubernetes
@@ -155,10 +141,24 @@ spec:
 ## traefik router proxy
 ---
 apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: errorpage-status
+spec:
+  errors:
+    status:
+      - 400-599
+    query: /#/error/{status}/html
+    service:
+      name: errors-web
+      port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: errors-web-show # <---
+  name: errors-web-show
 spec:
+  
   entryPoints:
     - web
   routes:
@@ -166,8 +166,10 @@ spec:
     kind: Rule
     priority: 1
     services:
-    - name: errors-web
-      port: 80
+    - kind: TraefikService
+      name: errorpage-status-errorpage-service
+    middlewares:              
+    - name: errorpage-status
 ---
 ############################################
 ```
