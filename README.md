@@ -148,7 +148,7 @@ spec:
   errors:
     status:
       - 400-599
-    query: /#/error/{status}/html
+    query: /#/error/{status}
     service:
       name: errors-web
       port: 80
