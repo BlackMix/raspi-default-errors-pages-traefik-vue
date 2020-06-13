@@ -40,6 +40,8 @@ certificatesResolvers:
         entryPoint: web
 ```
 ##########################################
+
+### Middleware
 * traefik inject configs in file provider
 * /configs/config/erros.yml
 ```yaml
@@ -53,6 +55,8 @@ http:
         query: "/#/error/{status}"
 ```
 #########################################
+
+### Kubernetes Deploy
 * Normal setup deploy Kubernetes
 * 00-deploy-errors.yaml
 ```yaml
